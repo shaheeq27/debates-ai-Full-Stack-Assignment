@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
   const project = await getProjectBySlug(slug);
   if (!project) return NextResponse.json({ error: "Not found" }, { status: 404 });
 
-  if (!canReadProject(project as IProject, user)) {
+  if (!canReadProject(project as unknown as IProject, user)) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 

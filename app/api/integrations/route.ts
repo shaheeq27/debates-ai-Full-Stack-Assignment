@@ -15,7 +15,7 @@ export async function PATCH(req: NextRequest) {
   const project = await getProjectBySlug(slug);
   if (!project) return NextResponse.json({ error: "Project not found" }, { status: 404 });
 
-  if (!canModifyIntegrations(project as IProject, user)) {
+  if (!canModifyIntegrations(project as unknown as IProject, user)) {
     return NextResponse.json({ error: "Forbidden — admin only" }, { status: 403 });
   }
 

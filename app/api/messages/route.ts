@@ -27,7 +27,7 @@ export async function GET(req: NextRequest) {
   const project = await getProjectBySlug(slug);
   if (!project) return NextResponse.json({ error: "Project not found" }, { status: 404 });
 
-  if (!canSendMessage(project as IProject, user)) {
+  if (!canSendMessage(project as unknown as IProject, user)) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
@@ -57,7 +57,7 @@ export async function POST(req: NextRequest) {
   const project = await getProjectBySlug(slug);
   if (!project) return NextResponse.json({ error: "Project not found" }, { status: 404 });
 
-  if (!canSendMessage(project as IProject, user)) {
+  if (!canSendMessage(project as unknown as IProject, user)) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 

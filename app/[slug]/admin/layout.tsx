@@ -18,7 +18,7 @@ export default async function AdminLayout({
   if (!project) redirect("/login");
 
   // Server-side admin guard
-  if (!canAccessAdminDashboard(project as IProject, user)) {
+  if (!canAccessAdminDashboard(project as unknown as IProject, user)) {
     redirect(`/${params.slug}/chat`);
   }
 

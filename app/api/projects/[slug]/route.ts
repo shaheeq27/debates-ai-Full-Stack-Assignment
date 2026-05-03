@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getSessionUser } from "@/lib/auth/session";
 import { getProjectBySlug, getProjectWithMembers } from "@/lib/services/project.service";
 import { canReadProject } from "@/lib/access/rules";
+import { IProject } from "@/lib/db/models/Project";
 
 export async function GET(
   req: NextRequest,
@@ -18,7 +19,7 @@ export async function GET(
   }
 
   // Authorization check
-  if (!canReadProject(project as Parameters<typeof canReadProject>[0], user)) {
+  if (!canReadProject(project as unknown as IProject, user)) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 

@@ -18,7 +18,7 @@ export default async function ProjectLayout({
   const project = await getProjectBySlug(params.slug);
   if (!project) redirect("/login");
 
-  if (!canReadProject(project as IProject, user)) {
+  if (!canReadProject(project as unknown as IProject, user)) {
     redirect("/login");
   }
 

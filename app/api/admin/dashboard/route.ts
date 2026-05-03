@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
   if (!project) return NextResponse.json({ error: "Project not found" }, { status: 404 });
 
   // Admin-only access check
-  if (!canAccessAdminDashboard(project as IProject, user)) {
+  if (!canAccessAdminDashboard(project as unknown as IProject, user)) {
     return NextResponse.json({ error: "Forbidden — admin only" }, { status: 403 });
   }
 
@@ -50,7 +50,7 @@ export async function PATCH(req: NextRequest) {
   const project = await getProjectBySlug(slug);
   if (!project) return NextResponse.json({ error: "Project not found" }, { status: 404 });
 
-  if (!canAccessAdminDashboard(project as IProject, user)) {
+  if (!canAccessAdminDashboard(project as unknown as IProject, user)) {
     return NextResponse.json({ error: "Forbidden — admin only" }, { status: 403 });
   }
 
